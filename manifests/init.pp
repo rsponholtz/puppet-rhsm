@@ -120,7 +120,7 @@ class rhsm (
 
   exec { 'RHNSM-register':
     command => "subscription-manager register --name='${::fqdn}'${_user}${_password}${_org}${_activationkey}${proxycli}",
-    onlyif  => 'subscription-manager identity | grep "not yet registered"',
+    onlyif  => 'subscription-manager identity 2>&1 | grep "not yet registered"',
     path    => '/bin:/usr/bin:/usr/sbin',
     require => Package['subscription-manager'],
   }
